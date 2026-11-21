@@ -1,0 +1,14 @@
+import { cn } from "cn"
+
+// shimmer instead of pulse: a single moving highlight, cheap for the GPU
+function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="skeleton"
+      className={cn("shimmer rounded-md", className)}
+      {...props}
+    />
+  )
+}
+
+export { Skeleton }
