@@ -8,6 +8,7 @@ import PageHeader from "@/components/dashboard/PageHeader";
 import StatusBadge from "@/components/shared/StatusBadge";
 import EmptyState from "@/components/shared/EmptyState";
 import BlockButton from "./_components/BlockButton";
+import UserDetails from "./_components/UserDetails";
 
 export const metadata = { title: "Manage Users" };
 
@@ -53,8 +54,11 @@ export default async function ManageUsersPage() {
                     <StatusBadge status={u.isBlocked ? "blocked" : "active"} />
                   </TableCell>
                   <TableCell>{new Date(u.createdAt).toLocaleDateString("en-US", { dateStyle: "medium" })}</TableCell>
-                  <TableCell className="text-right">
-                    <BlockButton user={u} isSelf={u._id === session?.user.id} />
+                  <TableCell>
+                    <div className="flex items-center justify-end gap-1.5">
+                      <UserDetails user={u} />
+                      <BlockButton user={u} isSelf={u._id === session?.user.id} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
