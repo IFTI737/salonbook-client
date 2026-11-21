@@ -4,6 +4,8 @@ import type { Appointment } from "@/lib/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import PageHeader from "@/components/dashboard/PageHeader";
 import StatusBadge from "@/components/shared/StatusBadge";
+import SafeImage from "@/components/shared/SafeImage";
+import AppointmentDetails from "@/components/appointments/AppointmentDetails";
 import EmptyState from "@/components/shared/EmptyState";
 import AdminAppointmentActions from "./_components/AdminAppointmentActions";
 import StatusTabs from "./_components/StatusTabs";
@@ -34,6 +36,7 @@ export default async function ManageAppointmentsPage({ searchParams }: Props) {
                 <TableHead>Price</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Payment</TableHead>
+                <TableHead>Requested</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -45,8 +48,16 @@ export default async function ManageAppointmentsPage({ searchParams }: Props) {
                     <p className="text-xs text-muted-foreground">{a.customerEmail}</p>
                   </TableCell>
                   <TableCell>
-                    <p>{a.serviceName}</p>
-                    {a.message && <p className="max-w-xs truncate text-xs text-muted-foreground">“{a.message}”</p>}
+                    <div className="flex items-center gap-3">
+                      <div className="relative size-12 shrink-0 overflow-hidden rounded-lg">
+                        <SafeImage src={a.serviceImage} alt={a.serviceName} sizes="48px" />
+                      </div>
+                      <div>
+                        <p className="font-medium">{a.serviceName}</p>
+                        <p className="text-xs text-muted-foreground">{a.serviceCategory}</p>
+                        {a.message && <p className="max-w-[180px] truncate text-xs text-muted-foreground">“{a.message}”</p>}
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell>
                     {formatDate(a.appointmentDate)}
@@ -59,8 +70,14 @@ export default async function ManageAppointmentsPage({ searchParams }: Props) {
                   <TableCell>
                     <StatusBadge status={a.paymentStatus} />
                   </TableCell>
+                  <TableCell className="whitespace-nowrap text-muted-foreground">
+                    {new Date(a.createdAt).toLocaleDateString("en-US", { dateStyle: "medium" })}
+                  </TableCell>
                   <TableCell>
-                    <AdminAppointmentActions appointment={a} />
+                    <div className="flex items-center justify-end gap-1.5">
+                      <AppointmentDetails appointment={a} showCustomer />
+                      <AdminAppointmentActions appointment={a} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
