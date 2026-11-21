@@ -33,6 +33,12 @@ export const auth = betterAuth({
         input: false,
         defaultValue: false,
       },
+      // A normal profile field: the user can edit it (checked in the hook below).
+      phone: {
+        type: "string",
+        required: false,
+        input: true,
+      },
     },
   },
 
@@ -64,12 +70,23 @@ export const auth = betterAuth({
   // The form checks the password rules too, but the server must never trust the form.
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
-      if (ctx.path !== "/sign-up/email") return;
-      const password = String(ctx.body?.password ?? "");
-      if (!/[A-Z]/.test(password) || !/[a-z]/.test(password)) {
-        throw new APIError("BAD_REQUEST", {
-          message: "Password must have at least one uppercase and one lowercase letter",
-        });
+      if (ctx.path === "/sign-up/email") {
+        const password = String(ctx.body?.password ?? "");
+        if (!/[A-Z]/.test(password) || !/[a-z]/.test(password)) {
+          throw new APIError("BAD_REQUEST", {
+            message: "Password must have at least one uppercase and one lowercase letter",
+          });
+        }
+      }
+
+      // Phone is optional, but when given it must look like a phone number.
+      if (ctx.path === "/update-user") {
+        const phone = String(ctx.body?.phone ?? "").trim();
+        if (phone && !/^\+?[0-9\s-]{7,15}$/.test(phone)) {
+          throw new APIError("BAD_REQUEST", {
+            message: "Phone number must be 7 to 15 digits (you can start with +)",
+          });
+        }
       }
     }),
   },
