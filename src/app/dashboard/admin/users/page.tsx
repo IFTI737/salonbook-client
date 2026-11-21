@@ -20,7 +20,7 @@ export default async function ManageUsersPage() {
     <div>
       <PageHeader title="Manage Users" text="Blocked customers are signed out and cannot book until unblocked." />
       {users.length ? (
-        <div className="overflow-hidden rounded-2xl border bg-card">
+        <div className="overflow-hidden rounded-3xl border bg-card">
           <Table>
             <TableHeader>
               <TableRow>

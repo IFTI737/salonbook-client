@@ -18,7 +18,7 @@ export default async function TransactionsPage() {
     <div>
       <PageHeader title="Transactions" text="All online payments. These records cannot be edited." />
       {list.length ? (
-        <div className="overflow-hidden rounded-2xl border bg-card">
+        <div className="overflow-hidden rounded-3xl border bg-card">
           <Table>
             <TableHeader>
               <TableRow>

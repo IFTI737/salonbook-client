@@ -27,11 +27,11 @@ export default function SidebarLinks({
             href={href}
             onClick={onNavigate}
             className={cn(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-              active ? "bg-primary text-primary-foreground shadow-md shadow-primary/20" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+              "flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium transition-[color,background-color,translate]",
+              active ? "bg-foreground text-background" : "text-muted-foreground hover:translate-x-1 hover:bg-muted hover:text-foreground",
             )}
           >
-            <Icon className="size-4" />
+            <Icon className={cn("size-4", active && "text-primary")} />
             {label}
           </Link>
         );

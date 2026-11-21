@@ -21,7 +21,7 @@ export default async function MyAppointmentsPage() {
     <div>
       <PageHeader title="My Appointments" text="Cancel pending visits or pay for confirmed ones." />
       {appointments.length ? (
-        <div className="overflow-hidden rounded-2xl border bg-card">
+        <div className="overflow-hidden rounded-3xl border bg-card">
           <Table>
             <TableHeader>
               <TableRow>

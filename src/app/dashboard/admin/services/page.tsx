@@ -27,7 +27,7 @@ export default async function ManageServicesPage() {
       </PageHeader>
 
       {services.length ? (
-        <div className="overflow-hidden rounded-2xl border bg-card">
+        <div className="overflow-hidden rounded-3xl border bg-card">
           <Table>
             <TableHeader>
               <TableRow>

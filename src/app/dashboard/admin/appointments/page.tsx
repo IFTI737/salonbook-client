@@ -24,7 +24,7 @@ export default async function ManageAppointmentsPage({ searchParams }: Props) {
       <PageHeader title="Manage Appointments" text="Confirm new bookings or cancel the ones that cannot happen." />
       <StatusTabs current={status} />
       {appointments.length ? (
-        <div className="overflow-hidden rounded-2xl border bg-card">
+        <div className="overflow-hidden rounded-3xl border bg-card">
           <Table>
             <TableHeader>
               <TableRow>

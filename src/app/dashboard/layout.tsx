@@ -16,13 +16,20 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <div className="flex min-h-screen">
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-6 border-r bg-card/60 p-5 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-8 border-r bg-card p-5 lg:flex">
         <Logo />
         <div>
-          <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+          <p className="mb-3 flex items-center gap-2 px-4 font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
+            <span className="h-px w-5 bg-primary/60" />
             {role === "admin" ? "Admin panel" : "My account"}
           </p>
           <SidebarLinks role={role} />
+        </div>
+        <div className="relative mt-auto overflow-hidden rounded-3xl bg-foreground p-5 text-background">
+          <div aria-hidden className="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full bg-primary/40 blur-2xl" />
+          <p className="relative font-mono text-[10px] tracking-[0.2em] text-spotlight uppercase">Opening hours</p>
+          <p className="relative mt-2 text-sm font-semibold">Sat - Thu · 9 AM - 7 PM</p>
+          <p className="relative text-xs text-background/60">Friday · 3 PM - 8 PM</p>
         </div>
       </aside>
 
