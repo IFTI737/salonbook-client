@@ -1,12 +1,9 @@
 import { betterAuth } from "better-auth";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
-
-const client = new MongoClient(process.env.DB_URI as string);
-// Same database name the Express server uses.
-const db = client.db("salonbook");
+import { db } from "./mongo";
 
 // On the live Vercel site we always use the real production address,
 // so Google never sends people back to localhost even if BETTER_AUTH_URL was copied wrong.
@@ -18,7 +15,8 @@ const baseURL = productionUrl || process.env.BETTER_AUTH_URL || "http://localhos
 
 export const auth = betterAuth({
   baseURL,
-  database: mongodbAdapter(db, { client }),
+  // Same database ("salonbook") the Express server uses. See lib/mongo.ts.
+  database: mongodbAdapter(db),
   trustedOrigins: [baseURL],
 
   user: {
