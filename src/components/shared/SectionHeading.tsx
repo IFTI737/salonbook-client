@@ -1,22 +1,35 @@
 import { cn } from "cn";
 
-// Small label + big title + optional text, used by every home section.
+// Mono eyebrow with index + big title, the same heading style as StudioSpace.
 export default function SectionHeading({
   eyebrow,
   title,
-  text,
+  description,
   className,
+  index,
+  align = "center",
 }: {
   eyebrow: string;
   title: string;
-  text?: string;
+  description?: string;
   className?: string;
+  index?: string;
+  align?: "center" | "left";
 }) {
   return (
-    <div className={cn("mx-auto mb-10 max-w-2xl text-center", className)}>
-      <span className="text-sm font-semibold tracking-wider text-primary uppercase">{eyebrow}</span>
-      <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-      {text && <p className="mt-3 text-muted-foreground">{text}</p>}
+    <div data-reveal className={cn("mb-12 max-w-2xl", align === "center" ? "mx-auto text-center" : "", className)}>
+      <p
+        className={cn(
+          "mb-4 flex items-center gap-3 font-mono text-xs font-medium tracking-[0.2em] text-primary uppercase",
+          align === "center" && "justify-center",
+        )}
+      >
+        {index && <span className="text-muted-foreground">({index})</span>}
+        <span className="h-px w-8 bg-primary/60" />
+        {eyebrow}
+      </p>
+      <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-5xl">{title}</h2>
+      {description && <p className="mt-4 leading-relaxed text-muted-foreground">{description}</p>}
     </div>
   );
 }
