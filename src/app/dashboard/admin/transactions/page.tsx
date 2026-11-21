@@ -1,5 +1,5 @@
 import { apiFetch } from "@/lib/api";
-import { formatDateTime, formatPrice } from "@/lib/format";
+import { formatDate, formatDateTime, formatPrice } from "@/lib/format";
 import type { Transaction } from "@/lib/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import PageHeader from "@/components/dashboard/PageHeader";
@@ -24,10 +24,12 @@ export default async function TransactionsPage() {
               <TableRow>
                 <TableHead>Customer</TableHead>
                 <TableHead>Service</TableHead>
+                <TableHead>Appointment</TableHead>
                 <TableHead>Amount</TableHead>
+                <TableHead>Currency</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Stripe session</TableHead>
-                <TableHead>Date</TableHead>
+                <TableHead>Transaction date</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -38,9 +40,12 @@ export default async function TransactionsPage() {
                     <p className="text-xs text-muted-foreground">{t.appointment?.customerEmail}</p>
                   </TableCell>
                   <TableCell>{t.appointment?.serviceName || "—"}</TableCell>
-                  <TableCell>
-                    {formatPrice(t.amount)} <span className="text-xs uppercase text-muted-foreground">{t.currency}</span>
+                  <TableCell className="whitespace-nowrap">
+                    {t.appointment ? formatDate(t.appointment.appointmentDate) : "—"}
+                    {t.appointment && <p className="text-xs text-muted-foreground">{t.appointment.timeSlot}</p>}
                   </TableCell>
+                  <TableCell>{formatPrice(t.amount)}</TableCell>
+                  <TableCell className="uppercase">{t.currency}</TableCell>
                   <TableCell>
                     <StatusBadge status={t.status} />
                   </TableCell>
