@@ -1,12 +1,13 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import { StatCardsSkeleton, TableSkeleton } from "@/components/shared/Skeletons";
+import { DashboardHeaderSkeleton, StatCardsSkeleton, TableSkeleton } from "@/components/shared/Skeletons";
 
 export default function Loading() {
   return (
-    <div className="grid gap-6">
-      <Skeleton className="h-9 w-64" />
+    <div>
+      <DashboardHeaderSkeleton />
       <StatCardsSkeleton />
-      <TableSkeleton />
+      <div className="mt-8">
+        <TableSkeleton />
+      </div>
     </div>
   );
 }
