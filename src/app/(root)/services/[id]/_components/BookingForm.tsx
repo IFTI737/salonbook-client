@@ -76,10 +76,10 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border bg-card p-6">
-      <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-        <CalendarCheck className="size-5 text-primary" /> Book this service
-      </h2>
+    <form onSubmit={handleSubmit}>
+      <p className="mb-4 flex items-center gap-2 font-mono text-xs tracking-[0.2em] text-primary uppercase">
+        <CalendarCheck className="size-4" /> Book this service
+      </p>
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor="date">Appointment date</FieldLabel>
@@ -111,7 +111,7 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
                   onClick={() => setSlot(t)}
                   aria-pressed={slot === t}
                   className={cn(
-                    "rounded-lg border px-2 py-2 text-sm font-medium transition-colors",
+                    "rounded-full border px-2 py-2 font-mono text-xs font-medium transition-colors",
                     slot === t ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary",
                     disabled && "cursor-not-allowed opacity-40 line-through hover:border-border hover:text-current",
                   )}
@@ -137,7 +137,7 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
           />
         </Field>
 
-        <Button type="submit" size="lg" className="h-11 w-full" disabled={submitting}>
+        <Button type="submit" size="lg" className="h-12 w-full rounded-full text-base" disabled={submitting}>
           {submitting && <Spinner />}
           {submitting ? "Booking..." : "Book Appointment"}
         </Button>
