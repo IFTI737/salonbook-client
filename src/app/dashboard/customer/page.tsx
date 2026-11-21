@@ -26,11 +26,11 @@ export default async function CustomerOverviewPage() {
       </PageHeader>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-        <StatCard label="Total appointments" value={stats.total} icon={<CalendarCheck  index={0} />} />
-        <StatCard label="Pending" value={stats.pending} icon={<CalendarClock  index={1} />} tone="amber" />
-        <StatCard label="Confirmed" value={stats.confirmed} icon={<CircleCheck  index={2} />} tone="sky" />
-        <StatCard label="Cancelled" value={stats.cancelled} icon={<CircleX  index={3} />} tone="red" />
-        <StatCard label="Paid" value={stats.paid} icon={<Wallet  index={4} />} tone="emerald" />
+        <StatCard index={0} label="Total appointments" value={stats.total} icon={<CalendarCheck />} />
+        <StatCard index={1} label="Pending" value={stats.pending} icon={<CalendarClock />} tone="amber" />
+        <StatCard index={2} label="Confirmed" value={stats.confirmed} icon={<CircleCheck />} tone="sky" />
+        <StatCard index={3} label="Cancelled" value={stats.cancelled} icon={<CircleX />} tone="red" />
+        <StatCard index={4} label="Paid" value={stats.paid} icon={<Wallet />} tone="emerald" />
       </div>
 
       <h2 className="mt-10 mb-4 text-xl font-semibold">Upcoming appointments</h2>

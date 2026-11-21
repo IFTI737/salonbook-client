@@ -12,6 +12,7 @@ export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   }, []);
 
