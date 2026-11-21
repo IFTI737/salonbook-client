@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { jwt } from "better-auth/plugins";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
 const client = new MongoClient(process.env.DB_URI as string);
@@ -43,6 +43,24 @@ export const auth = betterAuth({
     minPasswordLength: 6,
     // after register the user goes to the Sign In page
     autoSignIn: false,
+  },
+
+  // Blocked users cannot start a new session (email or Google).
+  databaseHooks: {
+    session: {
+      create: {
+        before: async (session) => {
+          const user = await db
+            .collection("user")
+            .findOne({ _id: new ObjectId(String(session.userId)) });
+          if (user?.isBlocked) {
+            throw new APIError("FORBIDDEN", {
+              message: "Your account has been blocked. Please contact the salon.",
+            });
+          }
+        },
+      },
+    },
   },
 
   // The form checks the password rules too, but the server must never trust the form.
