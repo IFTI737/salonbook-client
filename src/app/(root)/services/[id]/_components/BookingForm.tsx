@@ -31,6 +31,8 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
   const [booked, setBooked] = useState<string[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  // bumped after a failed booking so the taken slots are loaded again
+  const [reloadKey, setReloadKey] = useState(0);
 
   // load slots already taken for the chosen day
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
     return () => {
       ignore = true;
     };
-  }, [serviceId, date]);
+  }, [serviceId, date, reloadKey]);
 
   const isToday = date === todayString();
   const now = new Date();
@@ -63,7 +65,10 @@ export default function BookingForm({ serviceId }: { serviceId: string }) {
       toast.error(res.message);
       setSubmitting(false);
       // someone may have taken the slot: refresh the list
-      if (res.message.toLowerCase().includes("slot")) setDate((d) => d);
+      if (res.message.toLowerCase().includes("slot")) {
+        setSlot("");
+        setReloadKey((k) => k + 1);
+      }
       return;
     }
     toast.success("Appointment booked! The salon will confirm it soon.");
