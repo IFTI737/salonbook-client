@@ -15,6 +15,8 @@
 - Customer dashboard: overview, my appointments (cancel pending, Pay Now for confirmed), profile
 - Admin dashboard: overview stats, manage services (add / edit / delete / activate with image upload),
   manage appointments (confirm / cancel), manage users (block / unblock), read-only transactions, profile
+- Stripe Checkout payments: the appointment becomes Paid only after the server verifies Stripe's webhook;
+  payment success page (waits for the webhook) and cancel page
 - Toast messages, loading skeletons, custom 404 and error pages
 - Light, Dark and Auto theme, fully responsive
 
