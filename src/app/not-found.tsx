@@ -1,20 +1,14 @@
-import Link from "next/link";
 import { Scissors } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import Logo from "@/components/shared/Logo";
+import StatusPage from "@/components/shared/StatusPage";
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-5 px-4 text-center">
-      <Logo />
-      <Scissors className="size-14 animate-float text-primary" />
-      <h1 className="text-6xl font-bold">404</h1>
-      <p className="max-w-md text-muted-foreground">
-        Oops, this page got a trim and is gone. Let&apos;s get you back to something beautiful.
-      </p>
-      <Link href="/" className={buttonVariants({ size: "lg" })}>
-        Back to Home
-      </Link>
-    </main>
+    <StatusPage
+      code="404"
+      eyebrow="Page not found"
+      title="This page got a little too much trimmed off."
+      text="The link may be broken or the page was moved. Let's get you back to something beautiful."
+      icon={<Scissors />}
+    />
   );
 }
