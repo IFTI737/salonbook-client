@@ -37,8 +37,10 @@ export type AppUser = {
   name: string;
   email: string;
   image?: string | null;
+  phone?: string | null;
   role: "customer" | "admin";
   isBlocked?: boolean;
+  appointmentCount?: number;
   createdAt: string;
 };
 
@@ -65,5 +67,6 @@ export type AdminStats = {
   blockedUsers: number;
   appointments: StatusCounts;
   revenue: number;
+  paidPayments: number;
   recent: Appointment[];
 };

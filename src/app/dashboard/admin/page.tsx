@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Ban, CalendarCheck, CalendarClock, CircleCheck, DollarSign, Scissors, Users } from "lucide-react";
+import { BadgeCheck, Ban, CalendarCheck, CalendarClock, CircleCheck, DollarSign, Scissors, Users } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { formatDate, formatPrice } from "@/lib/format";
 import type { AdminStats } from "@/lib/types";
@@ -25,14 +25,14 @@ export default async function AdminOverviewPage() {
       </PageHeader>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard index={0} label="Services (active)" value={`${s.totalServices} (${s.activeServices})`} icon={<Scissors />} />
+        <StatCard index={0} label="Active services" value={s.activeServices} icon={<Scissors />} />
         <StatCard index={1} label="Customers" value={s.totalCustomers} icon={<Users />} tone="sky" />
         <StatCard index={2} label="Total appointments" value={s.appointments.total} icon={<CalendarCheck />} tone="primary" />
-        <StatCard index={3} label="Revenue (paid)" value={formatPrice(s.revenue)} icon={<DollarSign />} tone="emerald" />
+        <StatCard index={3} label="Successful payments" value={s.paidPayments} icon={<BadgeCheck />} tone="emerald" />
         <StatCard index={4} label="Pending" value={s.appointments.pending} icon={<CalendarClock />} tone="amber" />
         <StatCard index={5} label="Confirmed" value={s.appointments.confirmed} icon={<CircleCheck />} tone="sky" />
         <StatCard index={6} label="Cancelled" value={s.appointments.cancelled} icon={<Ban />} tone="red" />
-        <StatCard index={7} label="Blocked users" value={s.blockedUsers} icon={<Ban />} tone="red" />
+        <StatCard index={7} label="Revenue (paid)" value={formatPrice(s.revenue)} icon={<DollarSign />} tone="emerald" />
       </div>
 
       <div className="mt-10 mb-4 flex items-center justify-between">
