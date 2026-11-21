@@ -2,15 +2,21 @@
 
 **SalonBook** is a salon appointment booking platform. Customers browse salon services, book a date and time slot, and pay online. Admins manage services, appointments, users and payments.
 
-## Features (built step by step)
+## Features
 
-- Customer and Admin roles with separate dashboards
-- Email/password and Google sign in (Better Auth)
+- Customer and Admin roles with separate, role-guarded dashboards
+- Email/password (with strong password rules) and Google sign in (Better Auth)
 - Admin accounts cannot be created from the public Sign Up page
-- Browse and search services, filter by category, sort by price
-- Book an appointment with a date and a predefined time slot
-- Pay online with Stripe Checkout
-- Light, Dark and Auto theme, responsive design
+- Blocked users cannot sign in or use protected features
+- Home page with banner, featured services (from the database), categories, how it works and reviews
+- Browse active services: search by name, filter by category, sort by price
+- Private service details page with booking form (date, free time slots, optional message)
+- No double booking: taken slots are disabled and the server refuses duplicates
+- Customer dashboard: overview, my appointments (cancel pending, Pay Now for confirmed), profile
+- Admin dashboard: overview stats, manage services (add / edit / delete / activate with image upload),
+  manage appointments (confirm / cancel), manage users (block / unblock), read-only transactions, profile
+- Toast messages, loading skeletons, custom 404 and error pages
+- Light, Dark and Auto theme, fully responsive
 
 ## Tech Stack
 
@@ -56,6 +62,6 @@ Only the names are listed here. Never commit your real `.env` file.
 
 ## Links
 
-- Live site: _add after deploy_
+- Live site: https://salonbook-client-psi.vercel.app
 - Server repository: https://github.com/IFTI737/salonbook-server
 - Client repository: https://github.com/IFTI737/salonbook-client
