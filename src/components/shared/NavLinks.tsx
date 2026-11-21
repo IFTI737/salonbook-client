@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "cn";
 import { useSession } from "@/lib/auth-client";
 
-// Public visitors see Home + Browse Services. Logged-in users see Home + Dashboard.
+// Public visitors see Home + Browse Services. Logged-in users also get their Dashboard.
 export default function NavLinks({
   className,
   onNavigate,
@@ -19,6 +19,7 @@ export default function NavLinks({
   const items = session
     ? [
         { label: "Home", href: "/" },
+        { label: "Browse Services", href: "/services" },
         { label: "Dashboard", href: "/dashboard" },
       ]
     : [
