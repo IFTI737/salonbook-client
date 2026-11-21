@@ -43,6 +43,7 @@ export default function ServiceForm({ service }: { service?: Service }) {
         price: Number(form.get("price")),
         duration: Number(form.get("duration")),
         image,
+        status: form.get("status") === "inactive" ? ("inactive" as const) : ("active" as const),
       };
       const res = isEdit ? await updateService(service!._id, input) : await createService(input);
       if (!res.success) throw new Error(res.message);
@@ -84,6 +85,13 @@ export default function ServiceForm({ service }: { service?: Service }) {
             <Input id="duration" name="duration" type="number" min="5" max="600" step="5" defaultValue={service?.duration} required />
           </Field>
         </div>
+        <Field>
+          <FieldLabel htmlFor="status">Status</FieldLabel>
+          <NativeSelect id="status" name="status" defaultValue={service?.status || "active"} className="w-full">
+            <NativeSelectOption value="active">Active (visible and bookable)</NativeSelectOption>
+            <NativeSelectOption value="inactive">Inactive (hidden from customers)</NativeSelectOption>
+          </NativeSelect>
+        </Field>
         <Field>
           <FieldLabel htmlFor="description">Description</FieldLabel>
           <Textarea id="description" name="description" rows={5} minLength={10} defaultValue={service?.description} required placeholder="What is included, who it is for..." />

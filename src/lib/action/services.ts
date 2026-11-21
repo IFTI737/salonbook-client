@@ -12,6 +12,7 @@ export type ServiceInput = {
   price: number;
   duration: number;
   image: string;
+  status: "active" | "inactive";
 };
 
 // Every service change also refreshes the public pages that show services.
