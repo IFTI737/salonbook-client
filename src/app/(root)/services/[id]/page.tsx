@@ -95,7 +95,7 @@ export default async function ServiceDetailsPage({ params }: Props) {
 
         <aside className="min-w-0 lg:sticky lg:top-24">
           <div data-reveal className="relative overflow-hidden rounded-3xl border bg-card p-6 shadow-[0_30px_70px_-35px] shadow-primary/50 ring-1 ring-primary/20">
-            <div aria-hidden className="pointer-events-none absolute -top-20 -right-20 size-48 rounded-full bg-primary/15 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute -top-20 -right-20 size-48 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--primary)_22%,transparent),transparent)]" />
             <p>
               <span className="relative font-heading text-5xl font-bold text-primary">{formatPrice(service.price)}</span>
               <span className="font-mono text-xs tracking-wider text-muted-foreground uppercase"> / visit</span>

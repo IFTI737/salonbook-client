@@ -80,7 +80,7 @@ export default function Banner() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute -top-40 -left-40 size-[36rem] rounded-full bg-primary/25 blur-3xl" />
+                <div className="pointer-events-none absolute -top-40 -left-40 size-[36rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--primary)_35%,transparent),transparent)]" />
                 <Frame />
 
                 {/* salon status line */}

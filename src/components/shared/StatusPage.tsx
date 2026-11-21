@@ -22,7 +22,7 @@ export default function StatusPage({
         <Logo />
       </div>
       <div aria-hidden className="bg-grid pointer-events-none absolute inset-0" />
-      <div aria-hidden className="pointer-events-none absolute top-1/4 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute top-1/4 left-1/2 size-[28rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--primary)_22%,transparent),transparent)]" />
 
       <p aria-hidden className="text-outline relative font-heading text-[9rem] leading-none font-extrabold tracking-tighter text-primary/40 select-none sm:text-[13rem]">
         {code}

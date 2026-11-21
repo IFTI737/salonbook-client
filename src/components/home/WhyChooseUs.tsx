@@ -13,7 +13,7 @@ const promises = [
 export default function WhyChooseUs() {
   return (
     <section className="relative overflow-hidden bg-foreground py-20 text-background">
-      <div aria-hidden className="pointer-events-none absolute -top-32 right-0 size-[30rem] rounded-full bg-primary/30 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -top-32 right-0 size-[30rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--primary)_40%,transparent),transparent)]" />
       <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-40 invert" />
       <div className="container relative mx-auto grid items-center gap-12 px-4 lg:grid-cols-2">
         <div data-reveal>
