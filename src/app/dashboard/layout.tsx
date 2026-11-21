@@ -26,7 +26,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <SidebarLinks role={role} />
         </div>
         <div className="relative mt-auto overflow-hidden rounded-3xl bg-foreground p-5 text-background">
-          <div aria-hidden className="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full bg-primary/40 blur-2xl" />
+          <div aria-hidden className="pointer-events-none absolute -top-10 -right-10 size-32 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklch,var(--primary)_55%,transparent),transparent)]" />
           <p className="relative font-mono text-[10px] tracking-[0.2em] text-spotlight uppercase">Opening hours</p>
           <p className="relative mt-2 text-sm font-semibold">Sat - Thu · 9 AM - 7 PM</p>
           <p className="relative text-xs text-background/60">Friday · 3 PM - 8 PM</p>
@@ -34,7 +34,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b bg-background/80 px-4 backdrop-blur-xl sm:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b bg-background/95 px-4 sm:px-6">
           <div className="flex items-center gap-2">
             <MobileSidebar role={role} />
             <Logo className="lg:hidden" />
