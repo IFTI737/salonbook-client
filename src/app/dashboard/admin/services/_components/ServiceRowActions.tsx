@@ -27,14 +27,16 @@ export default function ServiceRowActions({ service }: { service: Service }) {
   const toggle = async () => {
     setBusy(true);
     const res = await setServiceStatus(service._id, nextStatus);
-    res.success ? toast.success(res.message) : toast.error(res.message);
+    if (res.success) toast.success(res.message);
+    else toast.error(res.message);
     setBusy(false);
   };
 
   const remove = async () => {
     setBusy(true);
     const res = await deleteService(service._id);
-    res.success ? toast.success("Service deleted") : toast.error(res.message);
+    if (res.success) toast.success("Service deleted");
+    else toast.error(res.message);
     setBusy(false);
   };
 

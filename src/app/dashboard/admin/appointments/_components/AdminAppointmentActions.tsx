@@ -15,7 +15,8 @@ export default function AdminAppointmentActions({ appointment }: { appointment: 
   const change = async (status: "confirmed" | "cancelled") => {
     setBusy(status);
     const res = await setAppointmentStatus(appointment._id, status);
-    res.success ? toast.success(res.message) : toast.error(res.message);
+    if (res.success) toast.success(res.message);
+    else toast.error(res.message);
     setBusy("");
   };
 

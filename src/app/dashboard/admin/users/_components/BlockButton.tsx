@@ -17,7 +17,8 @@ export default function BlockButton({ user, isSelf }: { user: AppUser; isSelf: b
   const toggle = async () => {
     setBusy(true);
     const res = await setUserBlocked(user._id, !user.isBlocked);
-    res.success ? toast.success(res.message) : toast.error(res.message);
+    if (res.success) toast.success(res.message);
+    else toast.error(res.message);
     setBusy(false);
   };
 
