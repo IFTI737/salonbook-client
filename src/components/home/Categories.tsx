@@ -1,42 +1,66 @@
 import Link from "next/link";
-import { Brush, Droplets, Flower2, Hand, Palette, Scissors, Sparkles } from "lucide-react";
-import { SERVICE_CATEGORIES } from "@/lib/constants";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { CATEGORY_DETAILS } from "@/lib/constants";
 import SectionHeading from "@/components/shared/SectionHeading";
 
-const icons = [Scissors, Palette, Droplets, Sparkles, Brush, Hand, Flower2];
-const blurbs = [
-  "Cuts, blow dries and styling",
-  "Highlights, balayage, global color",
-  "Keratin, spa and repair masks",
-  "Facials and glowing skin care",
-  "Party, bridal and everyday looks",
-  "Nail care, gel polish and spa feet",
-  "Relaxing massages and body care",
+// fanned like a hand of cards on desktop, swipeable row on phones
+const fan = [
+  { rot: "-10deg", y: "34px" },
+  { rot: "-6deg", y: "12px" },
+  { rot: "-2deg", y: "0px" },
+  { rot: "0deg", y: "-6px" },
+  { rot: "2deg", y: "0px" },
+  { rot: "6deg", y: "12px" },
+  { rot: "10deg", y: "34px" },
 ];
 
-// The 7 categories. Each one opens Browse Services already filtered.
 export default function Categories() {
   return (
-    <section className="bg-secondary/40 py-16">
-      <div className="container mx-auto px-4">
-        <SectionHeading eyebrow="Categories" title="Find the right treatment" text="Browse by what you need today." />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
-          {SERVICE_CATEGORIES.map((category, i) => {
-            const Icon = icons[i];
-            return (
-              <Link
-                key={category}
-                href={`/services?category=${encodeURIComponent(category)}`}
-                className="group flex flex-col items-center gap-3 rounded-2xl border bg-card p-5 text-center transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
-              >
-                <span className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon className="size-6" />
+    <section className="relative overflow-hidden bg-muted/50 py-24">
+      <div aria-hidden className="bg-grid pointer-events-none absolute inset-0" />
+      <div className="container relative mx-auto px-4">
+        <SectionHeading
+          index="02"
+          eyebrow="Browse by Category"
+          title="What are we doing today?"
+          description="Hover a card to pull it out of the deck. Pick a category and we show every service in it."
+        />
+        <div
+          data-reveal
+          className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pt-2 pb-8 lg:mx-0 lg:justify-center lg:gap-0 lg:overflow-visible lg:px-0 lg:pt-10 lg:pb-16"
+        >
+          {CATEGORY_DETAILS.map(({ name, label, image, blurb }, i) => (
+            <Link
+              key={name}
+              href={`/services?category=${encodeURIComponent(name)}`}
+              data-cursor="OPEN"
+              style={{ "--rot": fan[i].rot, "--y": fan[i].y } as React.CSSProperties}
+              className="deck-card group relative flex aspect-[3/4] w-[min(70vw,240px)] shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.6rem] bg-neutral-900 p-5 text-white shadow-[0_24px_50px_-28px_rgba(0,0,0,0.6)] ring-1 ring-primary/30 lg:-mx-4 lg:w-[190px] xl:w-[210px]"
+            >
+              <Image
+                src={image}
+                alt={name}
+                fill
+                unoptimized
+                sizes="240px"
+                className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+              <div className="absolute inset-x-4 top-4 flex items-center justify-between">
+                <span className="rounded-full bg-black/55 px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] uppercase">0{i + 1}</span>
+                <span className="flex size-9 items-center justify-center rounded-full bg-white/15 transition duration-500 group-hover:rotate-45 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <ArrowUpRight className="size-4" />
                 </span>
-                <span className="text-sm font-semibold">{category}</span>
-                <span className="text-xs text-muted-foreground">{blurbs[i]}</span>
-              </Link>
-            );
-          })}
+              </div>
+              <div className="relative">
+                <h3 className="text-2xl leading-none font-bold tracking-tight">{label}</h3>
+                <p className="mt-1 font-mono text-[10px] tracking-wider text-spotlight uppercase">{name}</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/75">{blurb}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
