@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { signOut, useSession } from "@/lib/auth-client";
-import { getDashboardPath } from "@/lib/constants";
 import { getInitials } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -68,7 +67,7 @@ export default function UserMenu() {
           </DropdownMenuLabel>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push(getDashboardPath(user.role))}>
+        <DropdownMenuItem onClick={() => router.push("/dashboard")}>
           <LayoutDashboard />
           Dashboard
         </DropdownMenuItem>

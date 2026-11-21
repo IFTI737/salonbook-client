@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "cn";
 import { useSession } from "@/lib/auth-client";
-import { getDashboardPath } from "@/lib/constants";
 
 // Public visitors see Home + Browse Services. Logged-in users see Home + Dashboard.
 export default function NavLinks({
@@ -20,7 +19,7 @@ export default function NavLinks({
   const items = session
     ? [
         { label: "Home", href: "/" },
-        { label: "Dashboard", href: getDashboardPath(session.user.role) },
+        { label: "Dashboard", href: "/dashboard" },
       ]
     : [
         { label: "Home", href: "/" },
