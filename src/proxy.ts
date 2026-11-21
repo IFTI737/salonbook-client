@@ -22,5 +22,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // /services (browse) is public, but /services/<id> (details + booking) is private
-  matcher: ["/dashboard/:path*", "/services/:path+"],
+  matcher: ["/dashboard/:path*", "/services/:path+", "/payment/:path*"],
 };
