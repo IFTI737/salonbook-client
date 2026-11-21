@@ -9,7 +9,7 @@ export default async function AdminProfilePage() {
   if (!session) return null;
   return (
     <div>
-      <PageHeader title="My Profile" text="Update your name and profile photo." />
+      <PageHeader title="My Profile" text="Update your name, phone number and profile photo." />
       <ProfileForm user={session.user} />
     </div>
   );

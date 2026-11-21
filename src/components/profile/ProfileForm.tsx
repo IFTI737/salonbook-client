@@ -14,13 +14,16 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui
 import { Spinner } from "@/components/ui/spinner";
 import StatusBadge from "@/components/shared/StatusBadge";
 
-type Props = { user: { name: string; email: string; image?: string | null; role: string; createdAt: string | Date } };
+type Props = {
+  user: { name: string; email: string; image?: string | null; phone?: string | null; role: string; createdAt: string | Date };
+};
 
-// Users can change only their name and photo. Role and blocked status are input:false in
+// Users can change only their name, phone and photo. Role and blocked status are input:false in
 // Better Auth, so the server ignores them even if someone sends them.
 export default function ProfileForm({ user }: Props) {
   const router = useRouter();
   const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone || "");
   const [preview, setPreview] = useState(user.image || "");
   const [file, setFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
@@ -31,10 +34,14 @@ export default function ProfileForm({ user }: Props) {
       toast.error("Name must be at least 2 characters");
       return;
     }
+    if (phone.trim() && !/^\+?[0-9\s-]{7,15}$/.test(phone.trim())) {
+      toast.error("Phone number must be 7 to 15 digits (you can start with +)");
+      return;
+    }
     setSaving(true);
     try {
       const image = file ? await uploadImage(file) : user.image || undefined;
-      const { error } = await authClient.updateUser({ name: name.trim(), image });
+      const { error } = await authClient.updateUser({ name: name.trim(), image, phone: phone.trim() });
       if (error) throw new Error(error.message);
       toast.success("Profile updated");
       setFile(null);
@@ -84,6 +91,11 @@ export default function ProfileForm({ user }: Props) {
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input id="email" value={user.email} disabled />
           <FieldDescription>Email cannot be changed.</FieldDescription>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="phone">Phone number</FieldLabel>
+          <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+880 1700 000000" />
+          <FieldDescription>Optional. The salon may use it to reach you about an appointment.</FieldDescription>
         </Field>
         <Field>
           <FieldLabel>Role</FieldLabel>
