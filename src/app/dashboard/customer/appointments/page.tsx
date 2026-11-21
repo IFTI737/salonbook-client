@@ -6,6 +6,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import PageHeader from "@/components/dashboard/PageHeader";
 import StatusBadge from "@/components/shared/StatusBadge";
+import SafeImage from "@/components/shared/SafeImage";
+import AppointmentDetails from "@/components/appointments/AppointmentDetails";
 import EmptyState from "@/components/shared/EmptyState";
 import AppointmentActions from "./_components/AppointmentActions";
 
@@ -30,6 +32,7 @@ export default async function MyAppointmentsPage() {
                 <TableHead>Price</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Payment</TableHead>
+                <TableHead>Requested</TableHead>
                 <TableHead className="text-right">Action</TableHead>
               </TableRow>
             </TableHeader>
@@ -37,8 +40,15 @@ export default async function MyAppointmentsPage() {
               {appointments.map((a) => (
                 <TableRow key={a._id}>
                   <TableCell>
-                    <p className="font-medium">{a.serviceName}</p>
-                    {a.message && <p className="max-w-xs truncate text-xs text-muted-foreground">“{a.message}”</p>}
+                    <div className="flex items-center gap-3">
+                      <div className="relative size-12 shrink-0 overflow-hidden rounded-lg">
+                        <SafeImage src={a.serviceImage} alt={a.serviceName} sizes="48px" />
+                      </div>
+                      <div>
+                        <p className="font-medium">{a.serviceName}</p>
+                        <p className="text-xs text-muted-foreground">{a.serviceCategory}</p>
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell>
                     {formatDate(a.appointmentDate)}
@@ -51,8 +61,14 @@ export default async function MyAppointmentsPage() {
                   <TableCell>
                     <StatusBadge status={a.paymentStatus} />
                   </TableCell>
-                  <TableCell className="text-right">
-                    <AppointmentActions appointment={a} />
+                  <TableCell className="whitespace-nowrap text-muted-foreground">
+                    {new Date(a.createdAt).toLocaleDateString("en-US", { dateStyle: "medium" })}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex justify-end gap-1.5">
+                      <AppointmentDetails appointment={a} />
+                      <AppointmentActions appointment={a} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
