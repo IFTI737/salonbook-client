@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+/* SalonBook: soft blush paper, deep plum ink, rose primary with a gold accent */
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.007 20);
+  --foreground: oklch(0.22 0.03 330);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 330);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 330);
+  --primary: oklch(0.58 0.17 10);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.02 15);
+  --secondary-foreground: oklch(0.32 0.06 340);
+  --muted: oklch(0.96 0.01 20);
+  --muted-foreground: oklch(0.5 0.03 330);
+  --accent: oklch(0.95 0.03 15);
+  --accent-foreground: oklch(0.32 0.07 340);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.012 20);
+  --input: oklch(0.91 0.012 20);
+  --ring: oklch(0.58 0.17 10);
+  --gold: oklch(0.78 0.12 85);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 330);
+  --foreground: oklch(0.96 0.008 20);
+  --card: oklch(0.2 0.018 330);
+  --card-foreground: oklch(0.96 0.008 20);
+  --popover: oklch(0.22 0.02 330);
+  --popover-foreground: oklch(0.96 0.008 20);
+  --primary: oklch(0.7 0.16 10);
+  --primary-foreground: oklch(0.17 0.02 330);
+  --secondary: oklch(0.26 0.02 330);
+  --secondary-foreground: oklch(0.96 0.008 20);
+  --muted: oklch(0.24 0.018 330);
+  --muted-foreground: oklch(0.72 0.02 20);
+  --accent: oklch(0.29 0.04 350);
+  --accent-foreground: oklch(0.96 0.008 20);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.7 0.16 10);
+  --gold: oklch(0.82 0.12 85);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    overflow-x: clip;
+  }
+  /* grids default to one shrinkable column so wide children never push the page sideways on phones */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+/* skeleton shimmer: one moving highlight per block */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--muted);
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--foreground) 7%, transparent), transparent);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+::selection { background: color-mix(in oklch, var(--primary) 30%, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
