@@ -8,9 +8,18 @@ const client = new MongoClient(process.env.DB_URI as string);
 // Same database name the Express server uses.
 const db = client.db("salonbook");
 
+// On the live Vercel site we always use the real production address,
+// so Google never sends people back to localhost even if BETTER_AUTH_URL was copied wrong.
+const productionUrl =
+  process.env.VERCEL_ENV === "production" && process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined;
+const baseURL = productionUrl || process.env.BETTER_AUTH_URL || "http://localhost:3000";
+
 export const auth = betterAuth({
+  baseURL,
   database: mongodbAdapter(db, { client }),
-  trustedOrigins: [process.env.BETTER_AUTH_URL as string],
+  trustedOrigins: [baseURL],
 
   user: {
     additionalFields: {
