@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CreditCard, X } from "lucide-react";
 import { toast } from "sonner";
 import { cancelMyAppointment } from "@/lib/action/appointments";
+import { startPayment } from "@/lib/action/payments";
 import type { Appointment } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -28,6 +29,19 @@ export default function AppointmentActions({ appointment }: { appointment: Appoi
     const res = await cancelMyAppointment(appointment._id);
     if (res.success) toast.success("Appointment cancelled");
     else toast.error(res.message);
+    setBusy(false);
+  };
+
+  // Pay Now: get a Stripe Checkout page from the server and go there.
+  // The appointment is marked paid later, only by the Stripe webhook.
+  const handlePay = async () => {
+    setBusy(true);
+    const res = await startPayment(appointment._id);
+    if (res.success && res.redirectUrl) {
+      window.location.href = res.redirectUrl;
+      return; // keep the loader on while the browser leaves the page
+    }
+    toast.error(res.message);
     setBusy(false);
   };
 
@@ -57,8 +71,8 @@ export default function AppointmentActions({ appointment }: { appointment: Appoi
 
   if (appointment.status === "confirmed" && appointment.paymentStatus === "unpaid") {
     return (
-      <Button size="sm" onClick={() => toast.info("Online payment is being set up. Please check back soon.")}>
-        <CreditCard /> Pay Now
+      <Button size="sm" onClick={handlePay} disabled={busy}>
+        {busy ? <Spinner /> : <CreditCard />} {busy ? "Opening..." : "Pay Now"}
       </Button>
     );
   }
